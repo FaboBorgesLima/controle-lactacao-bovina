@@ -2,17 +2,17 @@
 
    - [x] TypeScript types
    - [x] native stack navigation
-   - [ ] realm
+   - [x] realm
 
 2. ### main pages
 
-   - [ ] Home
-      - [ ] "Rebanho"
-         - [ ] "Add animal"
-         - [ ] "Editar animal"
-      - [ ] "Producao"
-         - [ ] "Add producao"
-         - [ ] "Editar producao"
+   - [x] Home
+      - [x] "Rebanho"
+         - [x] "Add animal"
+         - [x] "Editar animal"
+      - [x] "Producao"
+         - [x] "Add producao"
+         - [x] "Editar producao"
 
 3. ### expand pages
 
