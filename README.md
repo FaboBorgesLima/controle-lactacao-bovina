@@ -17,7 +17,7 @@
 3. ### expand pages
 
    - [x] navigation
-   - [ ] style
+   - [x] style
    - [ ] components
    - [ ] content
 

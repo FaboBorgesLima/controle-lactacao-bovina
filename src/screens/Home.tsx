@@ -1,11 +1,10 @@
 import React from "react";
-import { Text, View } from "react-native"
+import { ScrollView, Text, View } from "react-native"
+import ColorTest from "../test/ColorTest";
 
 const Home = ():JSX.Element => {
     return (
-        <View>
-            <Text>Home</Text>
-        </View>
+        <ColorTest />
     );
 }
 
