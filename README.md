@@ -19,7 +19,7 @@
    - [x] navigation
    - [x] style
    - [ ] components
-   - [ ] content
+   - [x] content
 
 4. ### localstorage
 

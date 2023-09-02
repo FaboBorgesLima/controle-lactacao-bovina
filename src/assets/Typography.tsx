@@ -1,14 +1,13 @@
 import { StyleProp, StyleSheet, TextStyle } from "react-native";
 import { FONT_SIZE } from "./Sizes";
 
-export interface TypographyInterface {
-    p:StyleProp<TextStyle>,
-    h1:StyleProp<TextStyle>,
-    h2:StyleProp<TextStyle>,
-    h3:StyleProp<TextStyle>,
-}
-
 export const Typography:TypographyInterface = StyleSheet.create({
+    label:{
+        marginBottom: FONT_SIZE,
+        fontSize: FONT_SIZE*1.1,
+        textAlign: "center",
+        fontWeight: "bold"
+    },
     p: {
         fontSize: FONT_SIZE,
     },
@@ -28,3 +27,11 @@ export const Typography:TypographyInterface = StyleSheet.create({
 });
 
 export default Typography;
+
+export interface TypographyInterface {
+    label:StyleProp<TextStyle>,
+    p:StyleProp<TextStyle>,
+    h1:StyleProp<TextStyle>,
+    h2:StyleProp<TextStyle>,
+    h3:StyleProp<TextStyle>,
+}

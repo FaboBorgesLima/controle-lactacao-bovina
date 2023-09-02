@@ -1,16 +1,16 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./src/screens/Home";
 import { NavigationContainer } from "@react-navigation/native";
-import Rebanho from "./src/screens/Rebanho/Rebanho";
+import Rebanho from "./src/screens/Rebanho";
 import AddAnimal from "./src/screens/Rebanho/AddAnimal";
 import EditarAnimal from "./src/screens/Rebanho/EditarAnimal";
-import Producao from "./src/screens/Producao/Producao";
+import Producao from "./src/screens/Producao";
 import AddProducao from "./src/screens/Producao/AddProducao";
 import EditarProducao from "./src/screens/Producao/EditarProducao";
-import { AppColors, Typography } from "./src/assets";
+import { AppColors } from "./src/assets";
 import { FONT_SIZE } from "./src/assets/Sizes";
 
-type RootSackParamList = {
+export type RootSackParamList = {
   Home:undefined,
   Rebanho:undefined,
   AddAnimal:undefined,
@@ -49,10 +49,10 @@ const App = ():JSX.Element => {
         >
         <RootStack.Screen name="Home" component={Home}/>
         <RootStack.Screen name="Rebanho" component={Rebanho}/>
-        <RootStack.Screen name="AddAnimal" component={AddAnimal}/>
+        <RootStack.Screen name="AddAnimal" component={AddAnimal} options={{ title:"Adicionar Animal"}}/>
         <RootStack.Screen name="EditarAnimal" component={EditarAnimal}/>
         <RootStack.Screen name="Producao" component={Producao}/>
-        <RootStack.Screen name="AddProducao" component={AddProducao}/>
+        <RootStack.Screen name="AddProducao" component={AddProducao} options={{ title:"Adicionar Produção"}}/>
         <RootStack.Screen name="EditarProducao" component={EditarProducao}/>
       </RootStack.Navigator>
     </NavigationContainer>

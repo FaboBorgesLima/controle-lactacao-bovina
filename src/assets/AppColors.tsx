@@ -12,9 +12,9 @@ export interface AppColorsInterface {
 
 export const AppColors:AppColorsInterface = {
     font:{
-        default: "#333",
-        primary: "#eee",
-        secondary: "#222"
+        default: "#666",
+        primary: "#fafafa",
+        secondary: "#202020"
     },
     background: {
         default: "#eee",

@@ -3,23 +3,6 @@ import { Containers } from "./Container";
 import { AppColors, BasicColorsInterface } from "./AppColors";
 import { ImageStyle, StyleProp, StyleSheet, TextStyle, ViewStyle } from "react-native";
 
-type StylesType = {
-    [name:string]:StyleProp<ViewStyle | TextStyle | ImageStyle>
-};
-
-interface StylesColorsInterface {
-    background : Modify<BasicColorsInterface,{
-        default: StyleProp<ViewStyle>,
-        primary: StyleProp<ViewStyle>,
-        secondary: StyleProp<ViewStyle>
-        }>
-    font : Modify<BasicColorsInterface,{
-        default: StyleProp<TextStyle>,
-        primary: StyleProp<TextStyle>,
-        secondary: StyleProp<TextStyle>
-        }>,
-}
-
 const StylesColors:StylesColorsInterface = {
     background : StyleSheet.create({
         default : {
@@ -77,3 +60,20 @@ const Styles:StylesType = {
 }
 
 export { Typography , Containers , AppColors , Styles , StylesColors};
+
+type StylesType = {
+    [name:string]:StyleProp<ViewStyle | TextStyle | ImageStyle>
+};
+
+interface StylesColorsInterface {
+    background : Modify<BasicColorsInterface,{
+        default: StyleProp<ViewStyle>,
+        primary: StyleProp<ViewStyle>,
+        secondary: StyleProp<ViewStyle>
+        }>
+    font : Modify<BasicColorsInterface,{
+        default: StyleProp<TextStyle>,
+        primary: StyleProp<TextStyle>,
+        secondary: StyleProp<TextStyle>
+        }>,
+}
