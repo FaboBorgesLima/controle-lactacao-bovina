@@ -1,14 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./src/screens/Home";
 import { NavigationContainer } from "@react-navigation/native";
-import Rebanho from "./src/screens/Rebanho";
-import AddAnimal from "./src/screens/Rebanho/AddAnimal";
-import EditarAnimal from "./src/screens/Rebanho/EditarAnimal";
-import Producao from "./src/screens/Producao";
-import AddProducao from "./src/screens/Producao/AddProducao";
-import EditarProducao from "./src/screens/Producao/EditarProducao";
+import {AddAnimal, EditarAnimal, Rebanho} from "./src/screens/Rebanho";
 import { AppColors } from "./src/assets";
 import { FONT_SIZE } from "./src/assets/Sizes";
+import { createRealmContext } from "@realm/react";
+import { RealmConfig } from "./src/realm";
+import { AddProducao, EditarProducao, Producao } from "./src/screens/Producao";
 
 export type RootSackParamList = {
   Home:undefined,
@@ -28,33 +26,41 @@ declare global {
 
 const RootStack = createNativeStackNavigator<RootSackParamList>();
 
+const RealmContext = createRealmContext(RealmConfig);
+
+export const useRealmContext = () => RealmContext;
+
 const App = ():JSX.Element => {
+  
+  const RealmProvider = useRealmContext().RealmProvider;
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator 
-        initialRouteName="Home"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor:AppColors.background.primary,
-          },
-          headerTitleStyle: {
-            fontSize: FONT_SIZE * 1.5,
-            color: AppColors.font.primary,
-            fontWeight:"bold"
-          },
-          headerTitleAlign: "center",
-          headerTintColor: AppColors.font.primary,
-        }}
-        >
-        <RootStack.Screen name="Home" component={Home}/>
-        <RootStack.Screen name="Rebanho" component={Rebanho}/>
-        <RootStack.Screen name="AddAnimal" component={AddAnimal} options={{ title:"Adicionar Animal"}}/>
-        <RootStack.Screen name="EditarAnimal" component={EditarAnimal}/>
-        <RootStack.Screen name="Producao" component={Producao}/>
-        <RootStack.Screen name="AddProducao" component={AddProducao} options={{ title:"Adicionar Produção"}}/>
-        <RootStack.Screen name="EditarProducao" component={EditarProducao}/>
-      </RootStack.Navigator>
+      <RealmProvider>
+        <RootStack.Navigator 
+          initialRouteName="Home"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor:AppColors.background.primary,
+            },
+            headerTitleStyle: {
+              fontSize: FONT_SIZE * 1.2,
+              color: AppColors.font.primary,
+              fontWeight:"bold",
+            },
+            headerTitleAlign: "center",
+            headerTintColor: AppColors.font.primary,
+          }}
+          >
+          <RootStack.Screen name="Home" component={Home}/>
+          <RootStack.Screen name="Rebanho" component={Rebanho}/>
+          <RootStack.Screen name="AddAnimal" component={AddAnimal} options={{ title:"Adicionar Animal"}}/>
+          <RootStack.Screen name="EditarAnimal" component={EditarAnimal}/>
+          <RootStack.Screen name="Producao" component={Producao}/>
+          <RootStack.Screen name="AddProducao" component={AddProducao} options={{ title:"Adicionar Produção"}}/>
+          <RootStack.Screen name="EditarProducao" component={EditarProducao}/>
+        </RootStack.Navigator>
+      </RealmProvider>
     </NavigationContainer>
   );
 }

@@ -3,6 +3,7 @@
    - [x] TypeScript types
    - [x] native stack navigation
    - [x] realm
+   - [x] react-native-datepicker
 
 2. ### main pages
 
@@ -24,7 +25,7 @@
 4. ### localstorage
 
    - [ ] "Animal"
-      - [ ] add
+      - [x] add
       - [ ] change
       - [ ] delete
    - [ ] "Producao"

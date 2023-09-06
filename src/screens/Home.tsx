@@ -1,6 +1,6 @@
 import React from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { Containers, Styles } from "../assets";
+import { Containers, FONT_SIZE, Styles } from "../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootSackParamList } from "../../App";
 
@@ -8,7 +8,7 @@ const Home = ( {route,navigation}:HomeProps ):JSX.Element => {
 
     return (
         <ScrollView style={Styles.defaultBody}>
-            <View style={Containers.main}>
+            <View style={[Containers.main,{paddingTop:FONT_SIZE}]}>
                 <Pressable 
                     style={Styles.primaryButton}
                     onPress={ () => navigation.navigate("Rebanho") }

@@ -3,6 +3,8 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { Containers, Styles } from "../../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootSackParamList } from "../../../App";
+import AddProducao from "./AddProducao";
+import EditarProducao from "./EditarProducao";
 
 const Producao = ( {navigation,route}:ProducaoProps ):JSX.Element => {
     return (
@@ -25,6 +27,6 @@ const Producao = ( {navigation,route}:ProducaoProps ):JSX.Element => {
     );
 }
 
-export default Producao;
+export { Producao, AddProducao, EditarProducao};
 
 type ProducaoProps = NativeStackScreenProps<RootSackParamList,"Producao">

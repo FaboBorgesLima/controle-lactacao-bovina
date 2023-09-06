@@ -1,5 +1,6 @@
 import { Typography } from "./Typography";
 import { Containers } from "./Container";
+import { FONT_SIZE, FONT_RESIZED, TOTAL_HEIGHT } from "./Sizes";
 import { AppColors, BasicColorsInterface } from "./AppColors";
 import { ImageStyle, StyleProp, StyleSheet, TextStyle, ViewStyle } from "react-native";
 
@@ -13,6 +14,9 @@ const StylesColors:StylesColorsInterface = {
         } ,
         secondary : {
             backgroundColor : AppColors.background.secondary
+        } ,
+        danger : {
+            backgroundColor : AppColors.background.danger
         }
     }) ,
     font : StyleSheet.create({
@@ -24,6 +28,9 @@ const StylesColors:StylesColorsInterface = {
         } ,
         secondary : {
             color : AppColors.font.secondary
+        } ,
+        danger : {
+            color : AppColors.font.danger
         }
     })
 }
@@ -59,8 +66,6 @@ const Styles:StylesType = {
     ) ,
 }
 
-export { Typography , Containers , AppColors , Styles , StylesColors};
-
 type StylesType = {
     [name:string]:StyleProp<ViewStyle | TextStyle | ImageStyle>
 };
@@ -69,11 +74,15 @@ interface StylesColorsInterface {
     background : Modify<BasicColorsInterface,{
         default: StyleProp<ViewStyle>,
         primary: StyleProp<ViewStyle>,
-        secondary: StyleProp<ViewStyle>
+        secondary: StyleProp<ViewStyle>,
+        danger: StyleProp<ViewStyle>,
         }>
     font : Modify<BasicColorsInterface,{
         default: StyleProp<TextStyle>,
         primary: StyleProp<TextStyle>,
-        secondary: StyleProp<TextStyle>
+        secondary: StyleProp<TextStyle>,
+        danger: StyleProp<TextStyle>,
         }>,
 }
+
+export { Typography , Containers , AppColors , Styles , StylesColors, FONT_RESIZED, FONT_SIZE, TOTAL_HEIGHT};
