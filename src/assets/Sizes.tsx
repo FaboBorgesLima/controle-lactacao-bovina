@@ -1,5 +1,6 @@
-import { Dimensions } from "react-native";
+import { Dimensions, StatusBar } from "react-native";
 
-export const FONT_SIZE = ( ( Dimensions.get("screen").width ) / 20 );
-export const FONT_RESIZED = FONT_SIZE * ( Dimensions.get("screen").fontScale );
-export const TOTAL_HEIGHT = Dimensions.get("screen").height * 0.85;
+export const FONT_SIZE = ( ( Dimensions.get("window").width ) / 20 );
+export const FONT_RESIZED = FONT_SIZE * ( Dimensions.get("window").fontScale );
+export const TOTAL_HEIGHT = Dimensions.get("window").height * 0.93 ;
+export const TOTAL_WIDTH = Dimensions.get("window").width ;

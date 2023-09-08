@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { Containers, FONT_SIZE, Styles } from "../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootSackParamList } from "../../App";
+import { RootStackParamList } from "../../App";
 
 const Home = ( {route,navigation}:HomeProps ):JSX.Element => {
 
@@ -10,13 +10,13 @@ const Home = ( {route,navigation}:HomeProps ):JSX.Element => {
         <ScrollView style={Styles.defaultBody}>
             <View style={[Containers.main,{paddingTop:FONT_SIZE}]}>
                 <Pressable 
-                    style={Styles.primaryButton}
+                    style={[Styles.primaryButton,Containers.marginBottom]}
                     onPress={ () => navigation.navigate("Rebanho") }
                 >
                     <Text style={Styles.primaryH1}>Rebanho</Text>
                 </Pressable>
                 <Pressable 
-                    style={Styles.primaryButton}
+                    style={[Styles.primaryButton,Containers.marginBottom]}
                     onPress={ () => navigation.navigate("Producao") }
                 >
                     <Text style={Styles.primaryH1}>Produção</Text>
@@ -28,4 +28,4 @@ const Home = ( {route,navigation}:HomeProps ):JSX.Element => {
 
 export default Home;
 
-type HomeProps = NativeStackScreenProps<RootSackParamList,"Home">
+type HomeProps = NativeStackScreenProps<RootStackParamList,"Home">

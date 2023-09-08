@@ -1,6 +1,6 @@
 import { Typography } from "./Typography";
 import { Containers } from "./Container";
-import { FONT_SIZE, FONT_RESIZED, TOTAL_HEIGHT } from "./Sizes";
+import { FONT_SIZE, FONT_RESIZED, TOTAL_HEIGHT, TOTAL_WIDTH } from "./Sizes";
 import { AppColors, BasicColorsInterface } from "./AppColors";
 import { ImageStyle, StyleProp, StyleSheet, TextStyle, ViewStyle } from "react-native";
 
@@ -38,7 +38,7 @@ const StylesColors:StylesColorsInterface = {
 const Styles:StylesType = {
     defaultButton : StyleSheet.compose(
         Containers.button,
-        StylesColors.background.default
+        StylesColors.background.default,
     ) ,
     primaryButton : StyleSheet.compose(
         Containers.button,
@@ -85,4 +85,4 @@ interface StylesColorsInterface {
         }>,
 }
 
-export { Typography , Containers , AppColors , Styles , StylesColors, FONT_RESIZED, FONT_SIZE, TOTAL_HEIGHT};
+export { Typography , Containers , AppColors , Styles , StylesColors, FONT_RESIZED, FONT_SIZE, TOTAL_HEIGHT,TOTAL_WIDTH};

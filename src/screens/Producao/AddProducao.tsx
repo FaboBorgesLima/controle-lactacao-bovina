@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { AppColors, Containers, FONT_SIZE, Styles, StylesColors, Typography } from "../../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootSackParamList } from "../../../App";
+import { RootStackParamList } from "../../../App";
 import DatePicker from "react-native-date-picker";
 
 const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
@@ -32,7 +32,7 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
                         ]}
                         keyboardType="number-pad"
                         onChangeText={ ( newVolume ) => setVolume( parseFloat(newVolume) ) }
-                        maxLength={4}
+                        maxLength={7}
                         placeholder="Volume em litros"
                         placeholderTextColor={AppColors.font.default}
                     />
@@ -41,7 +41,7 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
                     <Text style={[
                         Typography.label,
                         StylesColors.font.secondary
-                        ]}>Data do inicio da coleta</Text>
+                        ]}>Data do Inicio da Coleta</Text>
                     <Pressable 
                         style={Styles.secondaryButton}
                         onPress={ () => setOpenStartDate(true) }
@@ -50,7 +50,7 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
                     </Pressable>
                     <Pressable style={Styles.primaryButton}
                     onPress={ () => setOpenStartDate(true)}>
-                        <Text style={Styles.primaryH1}>Modificar inicio</Text>
+                        <Text style={Styles.primaryH1}>Modificar Inicio</Text>
                     </Pressable>
                     <DatePicker 
                     modal
@@ -73,7 +73,7 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
                     <Text style={[
                         Typography.label,
                         StylesColors.font.secondary,
-                        ]}>Data do fim da coleta </Text>
+                        ]}>Data do Fim da Coleta </Text>
                     <Pressable 
                         style={Styles.secondaryButton}
                         onPress={ () => setOpenEndDate(true) }
@@ -82,7 +82,7 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
                     </Pressable>
                     <Pressable style={Styles.primaryButton}
                     onPress={ () => setOpenEndDate(true)}>
-                        <Text style={Styles.primaryH1}>Modificar final</Text>
+                        <Text style={Styles.primaryH1}>Modificar Final</Text>
                     </Pressable>
                     <DatePicker 
                     modal
@@ -116,4 +116,4 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
 
 export default AddProducao;
 
-type AddProducaoProps = NativeStackScreenProps<RootSackParamList,"AddProducao">
+type AddProducaoProps = NativeStackScreenProps<RootStackParamList,"AddProducao">

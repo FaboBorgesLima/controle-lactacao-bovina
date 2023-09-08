@@ -1,20 +1,60 @@
 import {  Dimensions, StyleProp, StyleSheet, ViewStyle } from "react-native";
-import { FONT_SIZE, TOTAL_HEIGHT } from "./Sizes";
+import { FONT_SIZE, TOTAL_HEIGHT, TOTAL_WIDTH } from "./Sizes";
 
 export const Containers:ContainersInterfaces = StyleSheet.create({
     body: {
-        width:"100%",
-        height: Dimensions.get("window").height,
+        width: TOTAL_WIDTH,
+        height: TOTAL_HEIGHT,
+    },
+    scrollView: {
+        heigh:TOTAL_HEIGHT,
+        width:TOTAL_WIDTH,
+        justifyContent:"center",
+        alignItems:"center"
     },
     footer:{
-        height: TOTAL_HEIGHT * 0.12,
-        padding:FONT_SIZE,
+        height: TOTAL_HEIGHT * 0.10,
+        position:"absolute",
+        bottom:0,
+        right:0,
+        width: TOTAL_WIDTH,
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
     },
     button: {
         height: ( FONT_SIZE * 2.4 ),
-        width: (FONT_SIZE * 17),
+        width: TOTAL_WIDTH * 0.8,
         borderRadius: FONT_SIZE * 1.2,
-        margin: FONT_SIZE,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        elevation: FONT_SIZE * 0.5,
+    },
+    mediumButton: {
+        height: ( FONT_SIZE * 2.4 ),
+        width: TOTAL_WIDTH * 0.6,
+        borderRadius: FONT_SIZE * 1.2,
+        marginTop: 0,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        elevation: FONT_SIZE * 0.5,
+    },
+    smallButton: {
+        height: ( FONT_SIZE * 2.4 ),
+        width: TOTAL_WIDTH * 0.3,
+        borderRadius: FONT_SIZE * 1.2,
+        marginTop: 0,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        elevation: FONT_SIZE * 0.5,
+    },
+    exSmallButton:{
+        height: ( FONT_SIZE * 2.4 ),
+        width: TOTAL_WIDTH * 0.2,
+        borderRadius: FONT_SIZE * 1.2,
         marginTop: 0,
         display: "flex",
         flexDirection: "column",
@@ -24,9 +64,11 @@ export const Containers:ContainersInterfaces = StyleSheet.create({
     section: {
         borderRadius: FONT_SIZE,
         padding: FONT_SIZE ,
-        margin: FONT_SIZE,
-        marginTop: 0,
+        marginBottom: FONT_SIZE,
+        width: TOTAL_WIDTH * 0.9,
         elevation: FONT_SIZE * 0.5,
+        justifyContent:"center",
+        alignItems:"center"
     },
     input: {
         height: ( FONT_SIZE * 3 ),
@@ -34,8 +76,9 @@ export const Containers:ContainersInterfaces = StyleSheet.create({
         elevation: FONT_SIZE * 0.5
     },
     main: {
-        height: TOTAL_HEIGHT * 0.88,
-        alignItems:"center"
+        height: TOTAL_HEIGHT * 0.9,
+        width: TOTAL_WIDTH,
+        alignItems:"center",
     },
     spaceBetween: {
         justifyContent: "space-between",
@@ -49,17 +92,29 @@ export const Containers:ContainersInterfaces = StyleSheet.create({
     flexRow: {
         display: "flex",
         flexDirection: "row",
+    },
+    marginBottom:{
+        marginBottom:FONT_SIZE
+    },
+    commonWidth:{
+        width:TOTAL_WIDTH * 0.8
     }
 });
 
 export interface ContainersInterfaces {
     body:StyleProp<ViewStyle>,
+    scrollView:StyleProp<ViewStyle>,
     footer:StyleProp<ViewStyle>,
     button:StyleProp<ViewStyle>,
+    mediumButton:StyleProp<ViewStyle>,
+    smallButton:StyleProp<ViewStyle>,
+    exSmallButton:StyleProp<ViewStyle>,
     section:StyleProp<ViewStyle>,
     input:StyleProp<ViewStyle>,
     main:StyleProp<ViewStyle>,
     spaceBetween:StyleProp<ViewStyle>,
     flexColumn:StyleProp<ViewStyle>,
     flexRow:StyleProp<ViewStyle>,
+    marginBottom:StyleProp<ViewStyle>,
+    commonWidth:StyleProp<ViewStyle>,
 }

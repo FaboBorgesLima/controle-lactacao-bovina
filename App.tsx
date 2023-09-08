@@ -8,11 +8,11 @@ import { createRealmContext } from "@realm/react";
 import { RealmConfig } from "./src/realm";
 import { AddProducao, EditarProducao, Producao } from "./src/screens/Producao";
 
-export type RootSackParamList = {
+export type RootStackParamList = {
   Home:undefined,
   Rebanho:undefined,
   AddAnimal:undefined,
-  EditarAnimal:undefined,
+  EditarAnimal:{name:string},
   Producao:undefined,
   AddProducao:undefined,
   EditarProducao:undefined
@@ -20,11 +20,11 @@ export type RootSackParamList = {
 
 declare global {
   namespace ReactNavigation {
-      interface RootParamList extends RootSackParamList {}
+      interface RootParamList extends RootStackParamList {}
   }
 }
 
-const RootStack = createNativeStackNavigator<RootSackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const RealmContext = createRealmContext(RealmConfig);
 
@@ -55,10 +55,10 @@ const App = ():JSX.Element => {
           <RootStack.Screen name="Home" component={Home}/>
           <RootStack.Screen name="Rebanho" component={Rebanho}/>
           <RootStack.Screen name="AddAnimal" component={AddAnimal} options={{ title:"Adicionar Animal"}}/>
-          <RootStack.Screen name="EditarAnimal" component={EditarAnimal}/>
+          <RootStack.Screen name="EditarAnimal" component={EditarAnimal} options={{ title:"Editar Animal"}}/>
           <RootStack.Screen name="Producao" component={Producao}/>
           <RootStack.Screen name="AddProducao" component={AddProducao} options={{ title:"Adicionar Produção"}}/>
-          <RootStack.Screen name="EditarProducao" component={EditarProducao}/>
+          <RootStack.Screen name="EditarProducao" component={EditarProducao} options={{ title:"Editar Produção"}}/>
         </RootStack.Navigator>
       </RealmProvider>
     </NavigationContainer>

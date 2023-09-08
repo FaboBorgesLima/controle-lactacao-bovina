@@ -1,47 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { Containers, FONT_SIZE, Styles, StylesColors, TOTAL_HEIGHT, Typography } from "../../assets";
+import { Containers, FONT_SIZE, Styles, StylesColors, TOTAL_HEIGHT, TOTAL_WIDTH, Typography } from "../../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootSackParamList, useRealmContext } from "../../../App";
+import { RootStackParamList, useRealmContext } from "../../../App";
 import { Vaca } from "../../realm/Vaca";
 import EditarAnimal from "./EditarAnimal";
 import AddAnimal from "./AddAnimal";
 import VacaItem from "../../components/VacaItem";
+import { NoData } from "../../components";
 
 const Rebanho = ( {route,navigation}:RebanhoProps ):JSX.Element => {
     
-    const VACAS = useRealmContext().useQuery<Vaca>("Vaca").sorted("name");
+    const Vacas = useRealmContext().useQuery<Vaca>("Vaca").sorted("name");
+
+    const [additionalMessage,setAdditionalMassage ] = useState(Vacas[0] ? <></>  : <NoData title="Sem Registros Ainda" msg="Adicione algumas vacas e elas apareceram aqui."/>);
+    
 
     return (
         <View style={Styles.defaultBody}>
             <View style = {[Containers.main,{height:TOTAL_HEIGHT * 0.95}]}>
-                <ScrollView style = {{paddingTop:FONT_SIZE}}>
+                <ScrollView contentContainerStyle={{justifyContent:"center",alignItems:"center",width:TOTAL_WIDTH}}>
                     <Pressable
-                        style={Styles.primaryButton}
+                        style={[Styles.primaryButton,{marginTop:FONT_SIZE},Containers.marginBottom]}
                         onPress={ () => navigation.navigate("AddAnimal") }
                     >
                         <Text style={Styles.primaryH1}>+ Animal</Text>
                     </Pressable>
                     <Pressable 
-                        style={Styles.primaryButton}
+                        style={[Styles.primaryButton,Containers.marginBottom]}
                         onPress={ () => navigation.navigate("AddProducao") }
                     >
                         <Text style={Styles.primaryH1}>+ Produção</Text>
                     </Pressable>
                     
-                    {VACAS.map( ( { name, born} ) => {
+                    {Vacas.map( ( { name, born} ) => {
                         return (
-                            <VacaItem name={name} born={born}/>
+                            <VacaItem key = {name} name = {name} born = {born}/>
                         )
                     })}
-                    <View style={{height:FONT_SIZE}}></View>
+                    {additionalMessage}
                 </ScrollView>
             </View>
-            <View style={[{height:TOTAL_HEIGHT*0.5},StylesColors.background.primary]}></View>
+            <View style={[{height:TOTAL_HEIGHT*0.05},StylesColors.background.primary]}></View>
         </View>
     );
 }
 
 export {Rebanho, EditarAnimal, AddAnimal};
 
-type RebanhoProps = NativeStackScreenProps<RootSackParamList,"Rebanho">;
+type RebanhoProps = NativeStackScreenProps<RootStackParamList,"Rebanho">;

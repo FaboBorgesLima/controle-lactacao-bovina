@@ -13,7 +13,7 @@ const VacaItem = ( {name,born}:VacaItemProps ): JSX.Element => {
     return (
         <Pressable 
             style={[Containers.section,StylesColors.background.secondary]}
-            onPress={ () => navigation.navigate("EditarAnimal") }
+            onPress={ () => navigation.navigate("EditarAnimal",{name:name}) }
         >
             <Text style={[Typography.h2,StylesColors.font.secondary]}>Nome : {name} </Text>
             <Text style={[Typography.p,StylesColors.font.default]}>Idade : {DIFF_MONTHS} meses.</Text>
