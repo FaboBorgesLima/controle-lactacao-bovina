@@ -1,5 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./src/screens/Home";
+import 'react-native-get-random-values';
+const crypto = require("crypto");
 import { NavigationContainer } from "@react-navigation/native";
 import {AddAnimal, EditarAnimal, Rebanho} from "./src/screens/Rebanho";
 import { AppColors } from "./src/assets";

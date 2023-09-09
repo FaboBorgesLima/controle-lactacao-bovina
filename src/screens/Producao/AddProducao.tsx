@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BSON } from "realm";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { AppColors, Containers, FONT_SIZE, Styles, StylesColors, Typography } from "../../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -44,7 +45,7 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
                 realm.create(
                     "Lote",
                     {
-                        _id: new Realm.BSON.UUID(),
+                        _id: new BSON.UUID(),
                         vol:props.vol,
                         numVacas:props.numVacas,
                         start:props.start,

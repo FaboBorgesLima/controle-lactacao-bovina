@@ -31,6 +31,7 @@ const Producao = ( {navigation,route}:ProducaoProps ):JSX.Element => {
                     </Pressable>
                     {Lotes.map( (Lote) => (
                         <LoteItem
+                            key={Lote._id.toString()}
                             start={Lote.start}
                             end={Lote.end}
                             numVacas={Lote.numVacas}
