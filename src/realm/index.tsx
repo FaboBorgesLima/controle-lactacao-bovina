@@ -1,7 +1,5 @@
 import Realm from 'realm';
 import { Vaca } from './Vaca';
+import { Lote } from './Lote';
 
-export const RealmConfig: Realm.Configuration = {
-    schema: [Vaca],
-    deleteRealmIfMigrationNeeded:true
-}
+export {Vaca,Lote}

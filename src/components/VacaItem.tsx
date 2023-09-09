@@ -1,5 +1,5 @@
-import { Pressable, Text, View } from "react-native";
-import { Containers, FONT_SIZE, StylesColors, Typography } from "../assets";
+import { Pressable, Text } from "react-native";
+import { Containers, StylesColors, Typography } from "../assets";
 import { useNavigation } from "@react-navigation/native";
 
 const VacaItem = ( {name,born}:VacaItemProps ): JSX.Element => {

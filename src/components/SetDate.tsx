@@ -45,7 +45,8 @@ const  SetDate = (props:SetDateProps):JSX.Element => {
                     setDate(newDate);
                 }}
                 onCancel = { () => setOpenDate(false)}
-                maximumDate = {new Date()}
+                minimumDate = {props.minDate}
+                maximumDate = {props.maxDate ? props.maxDate : new Date}
             />
         </View>
 
@@ -59,5 +60,7 @@ interface SetDateProps {
     item : string;
     title : string;
     marginBottom ?: number;
+    maxDate ?: Date;
+    minDate ?: Date;
     onConfirm : (newDate:Date) => void ;
 }

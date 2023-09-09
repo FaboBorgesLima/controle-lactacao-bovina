@@ -2,28 +2,28 @@ import React, { useState } from "react";
 import { Pressable, SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
 import { AppColors, Containers, FONT_SIZE, Styles, StylesColors, Typography } from "../../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList, useRealmContext } from "../../../App";
+import { RootStackParamList} from "../../../App";
 import DatePicker from "react-native-date-picker";
 import { Warning } from "../../components";
 import { Vaca } from "../../realm/Vaca";
+import Realm from "realm";
+import { useRealm } from "@realm/react";
 
 const AddAnimal = ( {navigation}:AddAnimalProps ):JSX.Element => {
 
-    const [name,setName] = useState(""),
+    const realm = useRealm(),
+
+        [name,setName] = useState(""),
 
         [datePickerOpen,setDatePickerOpen] = useState(false),
 
         [date,setDate] = useState( new Date() ),
 
-        RealmContext = useRealmContext,
-
         [warningVisible,setWarningVisible] = useState(false),
 
         [warningMensage,setWarningMensage] = useState(""),
 
-        [warningTitle,setWarningTitle] = useState(""),
-
-        realm = RealmContext().useRealm();
+        [warningTitle,setWarningTitle] = useState("");
     
 
     const createAnimal = (name:string,bornDate:Date):void=> {
@@ -51,6 +51,7 @@ const AddAnimal = ( {navigation}:AddAnimalProps ):JSX.Element => {
 
             setWarningMensage("'"+name + "' já foi registrado, registre outro animal ou mude o identificador!");
         }
+
     }
 
     const nameManager = (newName:string) => {

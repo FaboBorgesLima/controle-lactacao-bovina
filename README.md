@@ -24,11 +24,11 @@
 
 4. ### localstorage
 
-   - [ ] "Animal"
+   - [x] "Animal"
       - [x] add
-      - [ ] change
-      - [ ] delete
+      - [x] change
+      - [x] delete
    - [ ] "Producao"
-      - [ ] add
+      - [x] add
       - [ ] change
       - [ ] delete

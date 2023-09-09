@@ -1,28 +1,34 @@
 import React, { useState } from "react";
 import { Alert, Pressable, Text, View } from "react-native";
-import { RootStackParamList, useRealmContext } from "../../../App";
+import { RootStackParamList } from "../../../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Containers, FONT_SIZE, Styles, StylesColors, TOTAL_WIDTH, Typography } from "../../assets";
+import { Containers, FONT_SIZE, Styles, StylesColors, Typography } from "../../assets";
 import { Vaca } from "../../realm/Vaca";
 import { SelectBoxBool, SetDate, Warning } from "../../components";
 import { UpdateMode } from "../../../node_modules/realm/";
+import { useRealm } from "@realm/react";
 
 const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
 
-    const RealmContext = useRealmContext,
-        realm = RealmContext().useRealm(),
+    const realm = useRealm(),
+
         thisVaca = realm.objectForPrimaryKey<Vaca>("Vaca",route.params.name),
+
         [mastite,setMastite] = useState(thisVaca?.mastite ? true : false ), // OK
+
         [monta,setMonta] = useState(thisVaca?.monta), // OK
+
         [pariu,setPariu] = useState(thisVaca?.pariu), // OK
+
         [raca,setRaca] = useState(thisVaca?.raca), //Later
+
         [nascimento,setNascimento] = useState(thisVaca?.born ? thisVaca.born : new Date()), //OK
+
         [modified,setModified] = useState(false);  
     
     const updateVaca = ( props:UpdateVacaProps ):void => {
 
         if ( props.modified ) {
-
             realm.write( () => {
 
                 const mastite = props.mastite ? props.mastite : false ;
@@ -75,6 +81,7 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
                 );
 
             });
+            
         }
         navigation.navigate("Rebanho");
     }

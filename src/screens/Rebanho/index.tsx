@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import Realm from "realm";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { Containers, FONT_SIZE, Styles, StylesColors, TOTAL_HEIGHT, TOTAL_WIDTH, Typography } from "../../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList, useRealmContext } from "../../../App";
+import { RootStackParamList } from "../../../App";
 import { Vaca } from "../../realm/Vaca";
 import EditarAnimal from "./EditarAnimal";
 import AddAnimal from "./AddAnimal";
 import VacaItem from "../../components/VacaItem";
 import { NoData } from "../../components";
+import { useQuery } from "@realm/react";
 
 const Rebanho = ( {route,navigation}:RebanhoProps ):JSX.Element => {
-    
-    const Vacas = useRealmContext().useQuery<Vaca>("Vaca").sorted("name");
 
-    const [additionalMessage,setAdditionalMassage ] = useState(Vacas[0] ? <></>  : <NoData title="Sem Registros Ainda" msg="Adicione algumas vacas e elas apareceram aqui."/>);
+    const Vacas = useQuery<Vaca>("Vaca");
+
+    let additionalMessage = Vacas[0] ? <></>  : <NoData title="Sem Registros Ainda" msg="Adicione algumas vacas e elas apareceram aqui."/>;
     
 
     return (
         <View style={Styles.defaultBody}>
             <View style = {[Containers.main,{height:TOTAL_HEIGHT * 0.95}]}>
-                <ScrollView contentContainerStyle={{justifyContent:"center",alignItems:"center",width:TOTAL_WIDTH}}>
+                <ScrollView contentContainerStyle={Containers.scrollView}>
                     <Pressable
                         style={[Styles.primaryButton,{marginTop:FONT_SIZE},Containers.marginBottom]}
                         onPress={ () => navigation.navigate("AddAnimal") }

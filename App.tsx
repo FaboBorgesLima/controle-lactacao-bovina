@@ -4,8 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import {AddAnimal, EditarAnimal, Rebanho} from "./src/screens/Rebanho";
 import { AppColors } from "./src/assets";
 import { FONT_SIZE } from "./src/assets/Sizes";
-import { createRealmContext } from "@realm/react";
-import { RealmConfig } from "./src/realm";
+import { RealmProvider, Realm } from "@realm/react";
+import { Lote,Vaca } from "./src/realm";
 import { AddProducao, EditarProducao, Producao } from "./src/screens/Producao";
 
 export type RootStackParamList = {
@@ -26,17 +26,13 @@ declare global {
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-const RealmContext = createRealmContext(RealmConfig);
-
-export const useRealmContext = () => RealmContext;
-
 const App = ():JSX.Element => {
-  
-  const RealmProvider = useRealmContext().RealmProvider;
 
   return (
     <NavigationContainer>
-      <RealmProvider>
+      <RealmProvider 
+      schema={[Lote,Vaca]}
+      deleteRealmIfMigrationNeeded={true}>
         <RootStack.Navigator 
           initialRouteName="Home"
           screenOptions={{

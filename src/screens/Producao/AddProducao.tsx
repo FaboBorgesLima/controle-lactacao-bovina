@@ -3,111 +3,125 @@ import { Pressable, Text, TextInput, View } from "react-native";
 import { AppColors, Containers, FONT_SIZE, Styles, StylesColors, Typography } from "../../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../App";
-import DatePicker from "react-native-date-picker";
+import { SetDate } from "../../components";
+import Realm from "realm";
+import { useRealm } from "@realm/react";
 
 const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
 
-    const [startDate,setStartDate] = useState(new Date),
-        [endDate,setEndDate] = useState(new Date),
-        [openStartDate,setOpenStartDate] = useState(false),
-        [openEndDate,setOpenEndDate] = useState(false),
-        [volume,setVolume] = useState(0);
+    type dateUndefined = Date | undefined;
+
+    const realm = useRealm(), 
+        [start,setStart] = useState<dateUndefined>(undefined),
+        [end,setEnd] = useState<dateUndefined>(undefined),
+        [volume,setVolume] = useState(0),
+        numVacas = realm.objects("Vaca").length;
     
+    let vacaColor = numVacas === 0 ? StylesColors.background.danger : StylesColors.background.primary ;
+
+    const createLote = (
+        props:{
+            vol?:number ,
+            start?:Date,
+            end?:Date,
+            numVacas?:number,
+        }
+    ) => {
+
+        if (
+            props.vol === undefined ||
+            props.start === undefined  ||
+            props.end === undefined  ||
+            props.numVacas === undefined
+            ) {
+            return;
+        }
+
+
+        if ( props.start.getTime() < props.end.getTime() ) {
+
+            realm.write( () => {
+                realm.create(
+                    "Lote",
+                    {
+                        _id: new Realm.BSON.UUID(),
+                        vol:props.vol,
+                        numVacas:props.numVacas,
+                        start:props.start,
+                        end:props.end
+                    }
+                    )
+            });
+
+            navigation.navigate("Producao");
+        }
+        
+    }
 
     return (
-        <View style={Styles.defaultBody}>
-            <View style={Containers.main}>
-                <View style={{marginBottom:FONT_SIZE*2}}>
-                    <Text style={[
-                        Typography.label,
-                        StylesColors.font.secondary
-                        ]}>Quantidade Coletada</Text>
-                    <TextInput
-                        style={[
-                            Containers.input,
-                            StylesColors.background.secondary,
-                            StylesColors.font.secondary,
-                            Typography.h2,
-                            {textAlign:"center",width:"100%"}
-                        ]}
-                        keyboardType="number-pad"
-                        onChangeText={ ( newVolume ) => setVolume( parseFloat(newVolume) ) }
-                        maxLength={7}
-                        placeholder="Volume em litros"
-                        placeholderTextColor={AppColors.font.default}
-                    />
-                </View>
-                <View style={{marginBottom:FONT_SIZE}}>
-                    <Text style={[
-                        Typography.label,
-                        StylesColors.font.secondary
-                        ]}>Data do Inicio da Coleta</Text>
-                    <Pressable 
-                        style={Styles.secondaryButton}
-                        onPress={ () => setOpenStartDate(true) }
-                    >
-                        <Text style={[StylesColors.font.secondary,Typography.h2,{textAlign:"center"}]}>{startDate.toLocaleDateString()}</Text>
-                    </Pressable>
-                    <Pressable style={Styles.primaryButton}
-                    onPress={ () => setOpenStartDate(true)}>
-                        <Text style={Styles.primaryH1}>Modificar Inicio</Text>
-                    </Pressable>
-                    <DatePicker 
-                    modal
-                    mode = "date"
-                    maximumDate={new Date()}
-                    minimumDate={new Date("2000-01-01") }
-                    open = {openStartDate}
-                    date = {startDate}
-                    confirmText="Confirmar"
-                    cancelText="Cancelar"
-                    title={"Definir data de nascimento"}
-                    onConfirm = { (newStartDate) => {
-                        setStartDate(newStartDate)
-                        setOpenStartDate(false)
-                    }}
-                    onCancel = { () => setOpenStartDate(false) }
-                    />
-                </View>
-                <View style={{marginBottom:FONT_SIZE*2}}>
-                    <Text style={[
-                        Typography.label,
+        <View style = {Styles.defaultBody}>
+            <View style = {Containers.main}>
+                <View style = {[
+                    Containers.section,
+                    StylesColors.background.secondary,
+                    {marginTop:FONT_SIZE}]}>
+                    <Text style = {[
+                        Typography.h1,
                         StylesColors.font.secondary,
-                        ]}>Data do Fim da Coleta </Text>
-                    <Pressable 
-                        style={Styles.secondaryButton}
-                        onPress={ () => setOpenEndDate(true) }
-                    >
-                        <Text style={[StylesColors.font.secondary,Typography.h2,{textAlign:"center"}]}>{endDate.toLocaleDateString()}</Text>
-                    </Pressable>
-                    <Pressable style={Styles.primaryButton}
-                    onPress={ () => setOpenEndDate(true)}>
-                        <Text style={Styles.primaryH1}>Modificar Final</Text>
-                    </Pressable>
-                    <DatePicker 
-                    modal
-                    mode = "date"
-                    maximumDate={new Date()}
-                    minimumDate={new Date("2000-01-01") }
-                    open = {openEndDate}
-                    date = {endDate}
-                    confirmText="Confirmar"
-                    cancelText="Cancelar"
-                    title={"Definir data de nascimento"}
-                    onConfirm = { (newEndDate) => {
-                        setEndDate(newEndDate);
-                        setOpenEndDate(false);
-                    }}
-                    onCancel = { () => setOpenEndDate(false) }
+                        Containers.marginBottom
+                    ]}>Coleta de Leite</Text>
+                    <TextInput 
+                        style = {[
+                            Containers.button,
+                            StylesColors.background.secondary,
+                            Typography.h2,
+                            StylesColors.font.secondary,
+                            Containers.marginBottom,
+                            {textAlign:"center"}
+                        ]}
+                        onChangeText = { (newVolume) => setVolume( Number(newVolume) )}
+                        placeholderTextColor = {AppColors.font.default}
+                        keyboardType = "decimal-pad"
+                        placeholder = "Volume em L"
                     />
+                    <SetDate
+                        date = {start}
+                        item = "Inicio :"
+                        marginBottom = {1}
+                        maxDate = {end}
+                        title = "Definir inicio da coleta de leite"
+                        onConfirm = { (newDate) => setStart(newDate) }
+                    />
+                    <SetDate
+                        date = {end}
+                        item = "Final :"
+                        minDate = {start}
+                        marginBottom = {1}
+                        title = "Definir final da coleta de leite"
+                        onConfirm = { (newDate) => setEnd(newDate) }
+                    />
+                    <View style = {[Containers.commonWidth,Containers.flexRow,Containers.spaceBetween]}>
+                        <View style = {[Containers.mediumButton,StylesColors.background.secondary]}>
+                            <Text style={Styles.secondaryH1}>Vacas</Text>
+                        </View>
+                        <View style = {[Containers.exSmallButton,vacaColor]}>
+                            <Text style={Styles.primaryH1}>{numVacas}</Text>
+                        </View>
+                    </View>
                 </View>
             </View>
-            <View style={[Containers.footer,StylesColors.background.primary]}>
-                <Pressable 
-                    style={Styles.secondaryButton}
-                    onPress={ () => navigation.navigate("Producao") }
+            <View style={[
+                Containers.footer,
+                StylesColors.background.primary]}>
+                <Pressable style = {[Containers.button,StylesColors.background.secondary]}
+                    onPress = { () => createLote({
+                        vol:volume,
+                        numVacas:numVacas,
+                        start:start,
+                        end:end,
+                    })}
                 >
-                    <Text style={[Styles.secondaryH1]}>Confirmar</Text>
+                    <Text style = {Styles.secondaryH1}>Confirmar</Text>
                 </Pressable>
             </View>
         </View>
