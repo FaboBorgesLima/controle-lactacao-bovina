@@ -7,11 +7,13 @@ import AddProducao from "./AddProducao";
 import EditarProducao from "./EditarProducao";
 import { useQuery } from "@realm/react";
 import { Lote } from "../../realm";
-import { LoteItem } from "../../components";
+import { LoteItem, Message } from "../../components";
 
 const Producao = ( {navigation,route}:ProducaoProps ):JSX.Element => {
 
-    const Lotes = useQuery<Lote>("Lote").sorted("start");
+    const Lotes = useQuery<Lote>("Lote").sorted("start", true);
+
+    let message = Lotes[0] ? false : true;
 
     return (
         <View style={Styles.defaultBody}>
@@ -32,12 +34,18 @@ const Producao = ( {navigation,route}:ProducaoProps ):JSX.Element => {
                     {Lotes.map( (Lote) => (
                         <LoteItem
                             key={Lote._id.toString()}
+                            uuid={Lote._id.toString()}
                             start={Lote.start}
                             end={Lote.end}
                             numVacas={Lote.numVacas}
                             vol={Lote.vol}
                         />
                     ))}
+                    <Message 
+                        title="Sem Registros Ainda"
+                        msg="Adicione alguns lotes e eles apareceram aqui."
+                        visible={message}
+                    />
                 </ScrollView>
             </View>
             <View style={[Containers.footer,StylesColors.background.primary,{height:TOTAL_HEIGHT*0.05}]} />

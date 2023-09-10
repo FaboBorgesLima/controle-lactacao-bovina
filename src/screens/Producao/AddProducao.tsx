@@ -4,7 +4,7 @@ import { Pressable, Text, TextInput, View } from "react-native";
 import { AppColors, Containers, FONT_SIZE, Styles, StylesColors, Typography } from "../../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../App";
-import { SetDate } from "../../components";
+import { SetDate, Warning } from "../../components";
 import Realm from "realm";
 import { useRealm } from "@realm/react";
 
@@ -16,6 +16,7 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
         [start,setStart] = useState<dateUndefined>(undefined),
         [end,setEnd] = useState<dateUndefined>(undefined),
         [volume,setVolume] = useState(0),
+        [warning,setWarning] = useState(false),
         numVacas = realm.objects("Vaca").length;
     
     let vacaColor = numVacas === 0 ? StylesColors.background.danger : StylesColors.background.primary ;
@@ -27,15 +28,17 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
             end?:Date,
             numVacas?:number,
         }
-    ) => {
+    ):boolean => {
 
         if (
             props.vol === undefined ||
             props.start === undefined  ||
             props.end === undefined  ||
-            props.numVacas === undefined
+            props.numVacas === undefined ||
+            props.numVacas <= 0
             ) {
-            return;
+
+            return false;
         }
 
 
@@ -54,9 +57,10 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
                     )
             });
 
-            navigation.navigate("Producao");
+            return true;
         }
-        
+
+        return false;
     }
 
     return (
@@ -110,17 +114,37 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
                         </View>
                     </View>
                 </View>
+                <Warning
+                    visible = {warning}
+                    title = "Algo está incorreto"
+                    msg = "Algum campo está incompleto ou incorreto."
+                />
             </View>
+
             <View style={[
                 Containers.footer,
                 StylesColors.background.primary]}>
                 <Pressable style = {[Containers.button,StylesColors.background.secondary]}
-                    onPress = { () => createLote({
-                        vol:volume,
-                        numVacas:numVacas,
-                        start:start,
-                        end:end,
-                    })}
+                    onPress = { () => {
+
+                        if ( createLote({
+                                vol:volume,
+                                numVacas:numVacas,
+                                start:start,
+                                end:end,
+                            }) 
+                        ) {
+
+                            setWarning(false);
+
+                            navigation.goBack();
+
+                        } else {
+
+                            setWarning(true);
+                        }
+                    } 
+                }
                 >
                     <Text style = {Styles.secondaryH1}>Confirmar</Text>
                 </Pressable>

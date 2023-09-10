@@ -1,11 +1,16 @@
-import { Pressable, Text, View } from "react-native"
-import { Containers, FONT_SIZE, StylesColors, Typography } from "../assets"
+import { Pressable, Text, View } from "react-native";
+import { Containers, FONT_SIZE, StylesColors, Typography } from "../assets";
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const LoteItem = (props:LoteItemProps):JSX.Element => {
+const LoteItem:React.FC<LoteItemProps> = (props) => {
+
+    const navigation = useNavigation();
 
     return (
         <Pressable
-            style={[Containers.section,StylesColors.background.secondary]}
+            style = {[Containers.section,StylesColors.background.secondary]}
+            onPress = { () => navigation.navigate("EditarProducao",{id:props.uuid})}
         >
             <View style={[Containers.commonWidth,Containers.flexRow,Containers.spaceBetween,{marginBottom:FONT_SIZE }]}>
                 <Text style={[Typography.h2,StylesColors.font.secondary]}>{props.start.toLocaleDateString()}</Text>
@@ -21,6 +26,7 @@ const LoteItem = (props:LoteItemProps):JSX.Element => {
 export default LoteItem;
 
 interface LoteItemProps {
+    uuid: string
     start:Date,
     end:Date,
     numVacas:number,

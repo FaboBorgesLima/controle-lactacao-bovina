@@ -83,7 +83,7 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
             });
             
         }
-        navigation.navigate("Rebanho");
+        navigation.goBack();
     }
 
     const deleteVaca = ( name:string ):void => {
@@ -93,7 +93,7 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
                 realm.objectForPrimaryKey("Vaca",name)
             );
         });
-        navigation.navigate("Rebanho");
+        navigation.goBack();
     }
 
     return (

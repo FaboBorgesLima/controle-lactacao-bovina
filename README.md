@@ -30,5 +30,5 @@
       - [x] delete
    - [ ] "Producao"
       - [x] add
-      - [ ] change
-      - [ ] delete
+      - [x] change
+      - [x] delete

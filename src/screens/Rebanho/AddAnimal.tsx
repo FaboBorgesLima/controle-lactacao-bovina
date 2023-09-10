@@ -41,7 +41,7 @@ const AddAnimal = ( {navigation}:AddAnimalProps ):JSX.Element => {
 
             setWarningVisible(false);
 
-            navigation.navigate("Rebanho");
+            navigation.goBack();
 
         } else {
 

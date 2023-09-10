@@ -17,7 +17,7 @@ export type RootStackParamList = {
   EditarAnimal:{name:string},
   Producao:undefined,
   AddProducao:undefined,
-  EditarProducao:undefined
+  EditarProducao:{id:string}
 }
 
 declare global {
@@ -54,9 +54,9 @@ const App = ():JSX.Element => {
           <RootStack.Screen name="Rebanho" component={Rebanho}/>
           <RootStack.Screen name="AddAnimal" component={AddAnimal} options={{ title:"Adicionar Animal"}}/>
           <RootStack.Screen name="EditarAnimal" component={EditarAnimal} options={{ title:"Editar Animal"}}/>
-          <RootStack.Screen name="Producao" component={Producao}/>
-          <RootStack.Screen name="AddProducao" component={AddProducao} options={{ title:"Adicionar Produção"}}/>
-          <RootStack.Screen name="EditarProducao" component={EditarProducao} options={{ title:"Editar Produção"}}/>
+          <RootStack.Screen name="Producao" component={Producao} options={{title:"Produção"}}/>
+          <RootStack.Screen name="AddProducao" component={AddProducao} options={{ title:"Adicionar Lote"}}/>
+          <RootStack.Screen name="EditarProducao" component={EditarProducao} options={{ title:"Editar Lote"}}/>
         </RootStack.Navigator>
       </RealmProvider>
     </NavigationContainer>

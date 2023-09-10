@@ -1,9 +1,9 @@
 import VacaItem from "./VacaItem";
 import Warning from "./Warning";
 import { SelectBoxBool } from "./SelectBox";
-import NoData from "./NoData";
+import Message from "./Message";
 import SetDate from "./SetDate";
 import LoteItem from "./LoteItem";
 
 
-export { VacaItem, Warning, SelectBoxBool, NoData, SetDate , LoteItem};
+export { VacaItem, Warning, SelectBoxBool, Message, SetDate , LoteItem};

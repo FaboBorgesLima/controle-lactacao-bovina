@@ -1,22 +1,21 @@
 import React from "react";
 import Realm from "realm";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { Containers, FONT_SIZE, Styles, StylesColors, TOTAL_HEIGHT, TOTAL_WIDTH, Typography } from "../../assets";
+import { Containers, FONT_SIZE, Styles, StylesColors, TOTAL_HEIGHT } from "../../assets";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../App";
 import { Vaca } from "../../realm/Vaca";
 import EditarAnimal from "./EditarAnimal";
 import AddAnimal from "./AddAnimal";
 import VacaItem from "../../components/VacaItem";
-import { NoData } from "../../components";
+import { Message } from "../../components";
 import { useQuery } from "@realm/react";
 
 const Rebanho = ( {route,navigation}:RebanhoProps ):JSX.Element => {
 
     const Vacas = useQuery<Vaca>("Vaca");
 
-    let additionalMessage = Vacas[0] ? <></>  : <NoData title="Sem Registros Ainda" msg="Adicione algumas vacas e elas apareceram aqui."/>;
-    
+    let message = Vacas[0] ? false : true;
 
     return (
         <View style={Styles.defaultBody}>
@@ -40,7 +39,7 @@ const Rebanho = ( {route,navigation}:RebanhoProps ):JSX.Element => {
                             <VacaItem key = {name} name = {name} born = {born}/>
                         )
                     })}
-                    {additionalMessage}
+                    <Message title="Sem Registros Ainda" msg="Adicione algumas vacas e elas apareceram aqui." visible={message}/>
                 </ScrollView>
             </View>
             <View style={[{height:TOTAL_HEIGHT*0.05},StylesColors.background.primary]}></View>
