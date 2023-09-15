@@ -70,7 +70,7 @@ const AddAnimal = ( {navigation}:AddAnimalProps ):JSX.Element => {
                         }]}>
 
                             <View style ={Containers.marginBottom}>
-                                <Text style={[Typography.label,StylesColors.font.secondary]}>Identificador</Text>
+                                <Text style={[Typography.label,StylesColors.font.secondary]}>Identificação</Text>
                                 <TextInput 
                                     style={[
                                         Containers.mediumButton,
@@ -83,7 +83,7 @@ const AddAnimal = ( {navigation}:AddAnimalProps ):JSX.Element => {
                                     onChangeText={(newName) => nameManager(newName)}
                                     maxLength={10}
                                     value={name}
-                                    placeholder="Identificador"
+                                    placeholder="Identificação"
                                     placeholderTextColor={AppColors.font.default}
                                 />
                             </View>

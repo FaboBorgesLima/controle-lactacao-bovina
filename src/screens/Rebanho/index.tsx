@@ -13,7 +13,7 @@ import { useQuery } from "@realm/react";
 
 const Rebanho = ( {route,navigation}:RebanhoProps ):JSX.Element => {
 
-    const Vacas = useQuery<Vaca>("Vaca");
+    const Vacas = useQuery<Vaca>("Vaca").sorted("name");
 
     let message = Vacas[0] ? false : true;
 

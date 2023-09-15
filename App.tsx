@@ -12,7 +12,7 @@ import { AddProducao, EditarProducao, Producao } from "./src/screens/Producao";
 
 export type RootStackParamList = {
   Home:undefined,
-  Rebanho:undefined,
+  Rebanho:undefined | {query:string},
   AddAnimal:undefined,
   EditarAnimal:{name:string},
   Producao:undefined,

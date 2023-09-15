@@ -16,7 +16,9 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
 
         [mastite,setMastite] = useState(thisVaca?.mastite ? true : false ), // OK
 
-        [monta,setMonta] = useState(thisVaca?.monta), // OK
+        [monta,setMonta] = useState(thisVaca?.monta),// OK
+        
+        [inse,setInse] = useState(thisVaca?.inse),
 
         [pariu,setPariu] = useState(thisVaca?.pariu), // OK
 
@@ -59,7 +61,7 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
                     );
                 }
                 if ( ( props.pariu !== thisVaca?.pariu ) &&
-                    (props.pariu !== undefined) ) {
+                    ( props.pariu !== undefined ) ) {
 
                     const pariu = new VacaUpdateClass(props.name);
                 
@@ -68,6 +70,19 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
                     realm.create(
                         "Vaca", 
                         pariu,
+                        UpdateMode.Modified
+                    );
+                }
+                if ( ( props.inse !== thisVaca?.inse ) && 
+                    ( props.inse !== undefined ) ) {
+                    
+                    const inse = new VacaUpdateClass(props.name);
+
+                    inse.inse = props.inse;
+
+                    realm.create(
+                        "Vaca",
+                        inse,
                         UpdateMode.Modified
                     );
                 }
@@ -165,6 +180,17 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
                     />
 
                     <SetDate 
+                        title = "Adicionar ou modificar última data de Inseminação"
+                        date = {inse}
+                        item = "Inseminação :"
+                        onConfirm = { (newDate) => {
+                            setInse(newDate);
+                            setModified(true);
+                        }}
+                        marginBottom = {1}
+                    />
+
+                    <SetDate 
                         title = "Modificar data de nascimento"
                         date = {nascimento}
                         item = "Nascimento :"
@@ -210,6 +236,7 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
                         monta:monta,
                         pariu:pariu,
                         modified:modified,
+                        inse:inse,
                     })}
                 >
                     <Text style={Styles.secondaryH1}>Confirmar</Text>
@@ -228,6 +255,7 @@ interface UpdateVacaProps {
     mastite: boolean | undefined;
     monta: Date | undefined;
     pariu: Date | undefined;
+    inse: Date | undefined;
     nascimento: Date;
     modified: boolean;
 }
@@ -240,6 +268,7 @@ class VacaUpdateClass {
     born?: Date;
     mastite?: boolean;
     monta?: Date;
+    inse?: Date;
     pariu?: Date;
     raca?: string;
 }

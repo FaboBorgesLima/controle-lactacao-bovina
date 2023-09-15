@@ -6,6 +6,7 @@ export class Vaca extends Realm.Object<Vaca> {
   born !: Date;
   pariu ?: Date;
   monta ?:Date;
+  inse ?:Date;
   mastite ?: boolean;
   raca ?:string;
 
@@ -16,6 +17,7 @@ export class Vaca extends Realm.Object<Vaca> {
       born: "date",
       pariu: "date?",
       monta: "date?",
+      inse: "date?",
       mastite: "bool?",
       raca: "string?",
     },
