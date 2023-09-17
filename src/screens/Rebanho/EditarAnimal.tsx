@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Pressable, Text, View } from "react-native";
+import { Alert, Pressable, ScrollView, Text, View } from "react-native";
 import { RootStackParamList } from "../../../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Containers, FONT_SIZE, Styles, StylesColors, Typography } from "../../assets";
@@ -17,8 +17,6 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
         [mastite,setMastite] = useState(thisVaca?.mastite ? true : false ), // OK
 
         [monta,setMonta] = useState(thisVaca?.monta),// OK
-        
-        [inse,setInse] = useState(thisVaca?.inse),
 
         [pariu,setPariu] = useState(thisVaca?.pariu), // OK
 
@@ -73,19 +71,6 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
                         UpdateMode.Modified
                     );
                 }
-                if ( ( props.inse !== thisVaca?.inse ) && 
-                    ( props.inse !== undefined ) ) {
-                    
-                    const inse = new VacaUpdateClass(props.name);
-
-                    inse.inse = props.inse;
-
-                    realm.create(
-                        "Vaca",
-                        inse,
-                        UpdateMode.Modified
-                    );
-                }
                 realm.create(
                     "Vaca", 
                     {
@@ -114,118 +99,120 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
     return (
         <View style={Styles.defaultBody}>
             <View style={Containers.main}>
-                <View style={[
-                    Containers.section,
-                    StylesColors.background.secondary,
-                    {marginTop:FONT_SIZE}
-                    ]}>
-                    <View style={{marginBottom:FONT_SIZE,alignItems:"center"}}>
-                        <View style={[
-                            Containers.mediumButton,
-                            StylesColors.background.primary,
-                            {marginBottom:FONT_SIZE*2}
-                            ]}>
-                            <Text style={[Styles.primaryH1]}>Vaca {thisVaca?.name}</Text>
-                        </View>
-                        <View style={[Containers.flexRow,Containers.spaceBetween,Containers.commonWidth]}>
+                <ScrollView contentContainerStyle={Containers.scrollView}>
+                    <View style={[
+                        Containers.section,
+                        StylesColors.background.secondary,
+                        {marginTop:FONT_SIZE}
+                        ]}>
+                        <View style={{marginBottom:FONT_SIZE,alignItems:"center"}}>
                             <View style={[
-                                Containers.smallButton,
-                                StylesColors.background.secondary,
-                                {marginRight:FONT_SIZE * 0.25}]}>
-                                <Text style={[
-                                    Typography.h2,
-                                    StylesColors.font.secondary,
-                                    {
-                                        textAlign:"center",
-                                    }
-                                    ]}>Mastite :</Text>
+                                Containers.mediumButton,
+                                StylesColors.background.primary,
+                                {marginBottom:FONT_SIZE*2}
+                                ]}>
+                                <Text style={[Styles.primaryH1]}>Vaca {thisVaca?.name}</Text>
                             </View>
-                            <SelectBoxBool
-                                value = {mastite}
-                                open = {true}
-                                trueResponse="Sim"
-                                falseResponse="Não"
-                                onSelectTrue = { () => {
-                                    setMastite(true);
-                                    setModified(true);
-                                }}
-                                onSelectFalse = { () => {
-                                    setMastite(false);
-                                    setModified(true);
-                                }}
-                            />
+                            <View style={[Containers.flexRow,Containers.spaceBetween,Containers.commonWidth]}>
+                                <View style={[
+                                    Containers.smallButton,
+                                    StylesColors.background.secondary,
+                                    {marginRight:FONT_SIZE * 0.25}]}>
+                                    <Text style={[
+                                        Typography.h2,
+                                        StylesColors.font.secondary,
+                                        {
+                                            textAlign:"center",
+                                        }
+                                        ]}>Mastite :</Text>
+                                </View>
+                                <SelectBoxBool
+                                    value = {mastite}
+                                    open = {true}
+                                    trueResponse="Sim"
+                                    falseResponse="Não"
+                                    onSelectTrue = { () => {
+                                        setMastite(true);
+                                        setModified(true);
+                                    }}
+                                    onSelectFalse = { () => {
+                                        setMastite(false);
+                                        setModified(true);
+                                    }}
+                                />
+                            </View>
                         </View>
+
+                        <SetDate 
+                            title = "Adicionar ou modificar data de cria"
+                            date = {pariu}
+                            marginBottom = {1}
+                            item = "Cria :"
+                            onConfirm = { (newDate) => {
+                                setPariu(newDate);
+                                setModified(true);
+                            }}
+                        />
+
+                        <SetDate 
+                            title = "Adicionar ou modificar última data de monta"
+                            date = {monta}
+                            item = "Monta :"
+                            onConfirm = { (newDate) => {
+                                setMonta(newDate);
+                                setModified(true);
+                            }}
+                            marginBottom = {1}
+                        />
+
+                        <SetDate 
+                            title = "Adicionar ou modificar última data de Inseminação"
+                            date = {monta}
+                            item = "Inseminação :"
+                            onConfirm = { (newDate) => {
+                                setMonta(newDate);
+                                setModified(true);
+                            }}
+                            marginBottom = {1}
+                        />
+
+                        <SetDate 
+                            title = "Modificar data de nascimento"
+                            date = {nascimento}
+                            item = "Nascimento :"
+                            marginBottom={1}
+                            onConfirm = { (newDate) => {
+                                setNascimento(newDate);
+                                setModified(true);
+                            }}
+                        />
+
+                        <Pressable style={[Containers.button,StylesColors.background.danger]}
+                            onPress={ () => {
+                                Alert.alert(
+                                    "Cuidado!",
+                                    "Deseja mesmo deletar todo resgistro desta vaca?",[
+                                    {
+                                        text:"Sim",
+                                        onPress: () => deleteVaca(route.params.name),
+                                        style:"cancel"
+                                    },
+                                    {
+                                        text:"Não",
+                                        style:"default"
+                                    }
+                                ])
+                            }}
+                        >
+                            <Text style={[Typography.h1,StylesColors.font.danger]}>Deletar</Text>
+                        </Pressable>
                     </View>
-
-                    <SetDate 
-                        title = "Adicionar ou modificar data de cria"
-                        date = {pariu}
-                        marginBottom = {1}
-                        item = "Cria :"
-                        onConfirm = { (newDate) => {
-                            setPariu(newDate);
-                            setModified(true);
-                        }}
+                    <Warning 
+                        visible = {modified}
+                        title = "Registro Modificado"
+                        msg = "Aperte em confirmar para salvar as modificações ou volte para cancela-las."
                     />
-
-                    <SetDate 
-                        title = "Adicionar ou modificar última data de monta"
-                        date = {monta}
-                        item = "Monta :"
-                        onConfirm = { (newDate) => {
-                            setMonta(newDate);
-                            setModified(true);
-                        }}
-                        marginBottom = {1}
-                    />
-
-                    <SetDate 
-                        title = "Adicionar ou modificar última data de Inseminação"
-                        date = {inse}
-                        item = "Inseminação :"
-                        onConfirm = { (newDate) => {
-                            setInse(newDate);
-                            setModified(true);
-                        }}
-                        marginBottom = {1}
-                    />
-
-                    <SetDate 
-                        title = "Modificar data de nascimento"
-                        date = {nascimento}
-                        item = "Nascimento :"
-                        marginBottom={1}
-                        onConfirm = { (newDate) => {
-                            setNascimento(newDate);
-                            setModified(true);
-                        }}
-                    />
-
-                    <Pressable style={[Containers.button,StylesColors.background.danger]}
-                        onPress={ () => {
-                            Alert.alert(
-                                "Cuidado!",
-                                "Deseja mesmo deletar todo resgistro desta vaca?",[
-                                {
-                                    text:"Sim",
-                                    onPress: () => deleteVaca(route.params.name),
-                                    style:"cancel"
-                                },
-                                {
-                                    text:"Não",
-                                    style:"default"
-                                }
-                            ])
-                        }}
-                    >
-                        <Text style={[Typography.h1,StylesColors.font.danger]}>Deletar</Text>
-                    </Pressable>
-                </View>
-                <Warning 
-                    visible = {modified}
-                    title = "Registro Modificado"
-                    msg = "Aperte em confirmar para salvar as modificações ou volte para cancela-las."
-                />
+                </ScrollView>
             </View>
             <View style={[Containers.footer,StylesColors.background.primary]}>
                 <Pressable style={[Containers.button,modified ? StylesColors.background.secondary : StylesColors.background.default]}
@@ -236,7 +223,6 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
                         monta:monta,
                         pariu:pariu,
                         modified:modified,
-                        inse:inse,
                     })}
                 >
                     <Text style={Styles.secondaryH1}>Confirmar</Text>
@@ -255,7 +241,6 @@ interface UpdateVacaProps {
     mastite: boolean | undefined;
     monta: Date | undefined;
     pariu: Date | undefined;
-    inse: Date | undefined;
     nascimento: Date;
     modified: boolean;
 }
@@ -268,7 +253,6 @@ class VacaUpdateClass {
     born?: Date;
     mastite?: boolean;
     monta?: Date;
-    inse?: Date;
     pariu?: Date;
     raca?: string;
 }
