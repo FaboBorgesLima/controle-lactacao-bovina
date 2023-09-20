@@ -36,9 +36,12 @@ const EditarProducao = ( {navigation,route}:EditarProducaoProps):JSX.Element => 
         "(start < $1 AND end > $1) OR"+
         "(start >= $0 AND end <= $1)",start,end)[0] ? true : false ;
 
-        if ( stackLotes ) {
+        if ( ( thisLote!.end.getTime() <= end!.getTime() ) && ( thisLote!.start.getTime() >= start!.getTime() ) ) {
+
+        } else if ( stackLotes ) {
+
             return false;
-        }
+        } 
         
         realm.write( () => {
             realm.create(

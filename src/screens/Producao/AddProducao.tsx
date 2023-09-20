@@ -13,13 +13,22 @@ const AddProducao = ( {navigation}:AddProducaoProps ):JSX.Element => {
 
     type dateUndefined = Date | undefined;
 
+    const TODAY = new Date().getTime();
+    const MONTH = new Date(30*24*60*60*1000).getTime() ;
+    const DAY = new Date(24*60*60*1000).getTime();
+
     const realm = useRealm(),
         Lotes = useQuery<Lote>("Lote"),
         [start,setStart] = useState<dateUndefined>(undefined),
         [end,setEnd] = useState<dateUndefined>(undefined),
         [volume,setVolume] = useState(0),
         [warning,setWarning] = useState(false),
-        numVacas = realm.objects("Vaca").length;
+        numVacas = realm.objects("Vaca").filtered(
+        " ( monta >= $0 "+
+        " OR monta == nil ) "+
+        " AND ( pariu < $1 )",
+        new Date( TODAY - ( 7 * MONTH ) ),
+        new Date( TODAY - ( 5 * DAY ) ) ).length;
     
     let vacaColor = numVacas === 0 ? StylesColors.background.danger : StylesColors.background.primary ;
 

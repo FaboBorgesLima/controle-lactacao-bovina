@@ -155,20 +155,9 @@ const EditarAnimal = ( {route,navigation}:EditarAnimalProps ):JSX.Element => {
                         />
 
                         <SetDate 
-                            title = "Adicionar ou modificar última data de monta"
+                            title = "Adicionar ou modificar data de prenhez"
                             date = {monta}
-                            item = "Monta :"
-                            onConfirm = { (newDate) => {
-                                setMonta(newDate);
-                                setModified(true);
-                            }}
-                            marginBottom = {1}
-                        />
-
-                        <SetDate 
-                            title = "Adicionar ou modificar última data de Inseminação"
-                            date = {monta}
-                            item = "Inseminação :"
+                            item = "Prenhez : "
                             onConfirm = { (newDate) => {
                                 setMonta(newDate);
                                 setModified(true);

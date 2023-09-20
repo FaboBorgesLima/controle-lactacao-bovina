@@ -28,9 +28,9 @@ const ShowProductionData:React.FC<ShowProductionDataProps> = (props) => {
     
     return(
         <View style={[Containers.section,BgColor]}>
-            <Text style={[Typography.h1,TxtColor]}>L por Vaca : {productionData.perVaca}L</Text>
-            <Text style={[Typography.h1,TxtColor]}>L por Dia : {productionData.perDay}L</Text>
-            <Text style={[Typography.h1,TxtColor]}>Total : {productionData.total}L</Text>
+            <Text style={[Typography.h1,TxtColor]}>L por Vaca : { Math.round( productionData.perVaca ) }L</Text>
+            <Text style={[Typography.h1,TxtColor]}>L por Dia : { Math.round( productionData.perDay ) }L</Text>
+            <Text style={[Typography.h1,TxtColor]}>Total : { Math.round( productionData.total ) }L</Text>
         </View>
     );
     
