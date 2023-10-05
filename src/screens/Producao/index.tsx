@@ -141,16 +141,8 @@ const Producao = ( {navigation,route}:ProducaoProps ):JSX.Element => {
                     />
                     <ShowProductionData 
                         visible={!message}
-                        minDate={minDate.getFullYear() < 2000 ? 
-                            lotesFilter.min("start")! : 
-                            minDate
-                        }
-                        maxDate={minDate.getFullYear() < 2000 ? 
-                            lotesFilter.max("end")! :
-                            ( ( minDate.getFullYear() === TODAY.getFullYear() && minDate.getMonth() === TODAY.getMonth() ) ?
-                                TODAY :
-                                maxDate
-                            )  }
+                        minDate={lotesFilter.min("start")!}
+                        maxDate={ lotesFilter.max("end")! }
                         numLotes={lotesFilter.length}
                         volumeTotal={lotesFilter.sum("vol")}
                         totalNumVacas={lotesFilter.sum("numVacas")}

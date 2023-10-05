@@ -18,11 +18,17 @@ export class ProductionData {
 
     constructor(props:ProductionDataProps){
      
-        const DAYS:number = ( ( props.maxDate.getTime() - props.minDate.getTime() ) / ( 1000 * 60 * 60 * 24 ) ) ;
+        let days:number = ( ( props.maxDate.getTime() - props.minDate.getTime() ) / ( 1000 * 60 * 60 * 24 ) ) +1 ;
+
+        if ( Math.trunc( days ) <= 0 ) {
+
+            days = 1;
+
+        }
         
         const VACAS:number = props.totalNumVacas / props.numLotes;
 
-        this.perDay = Number( ( props.volumeTotal / DAYS ).toFixed(2) );
+        this.perDay = Number( ( props.volumeTotal / days ).toFixed(2) );
 
         this.perVaca = this.perDay / VACAS;
 
